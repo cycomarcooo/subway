@@ -214,7 +214,27 @@ function subway_login_page_form() {
 
 	$subway_login_page_id = intval( get_option( 'subway_login_page' ) );
 
-	wp_dropdown_pages(array(
+	if ( ! empty( $subway_login_page_id ) ) {
+
+		$login_page_object = get_post( $post = $subway_login_page_id );
+
+		if ( ! empty( $login_page_object)  && isset( $login_page_object->post_content ) ) {
+			
+			// automatically prepend the login shortcode if no
+			// shortcode exists in the selected login page.
+			if ( ! has_shortcode( $login_page_object->post_content, 'subway_login' ) ) {
+				
+				$new_post_object = array(
+						'ID' => $login_page_object->ID,
+						'post_content' => '[subway_login] ' . $login_page_object->post_content //Prepend Only.
+					);
+
+				wp_update_post( $new_post_object );
+			}
+		}
+	}
+
+	wp_dropdown_pages( array(
 		'name' => 'subway_login_page',
 		'selected' => $subway_login_page_id,
 		'show_option_none' => __( 'Select Page', 'subway' ),
