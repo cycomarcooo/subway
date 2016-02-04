@@ -19,6 +19,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit();
 }
 
+// Deactivate Thrive Intranet in case it is used to prevent conflict
+deactivate_plugins( '/thrive-intranet/thrive-intranet.php' );
+
 require_once plugin_dir_path( __FILE__ ) . 'login-form.php';
 require_once plugin_dir_path( __FILE__ ) . 'functions.php';
 require_once plugin_dir_path( __FILE__ ) . 'private.php';
