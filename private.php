@@ -241,7 +241,7 @@ function subway_login_page_form() {
 		'show_option_none' => esc_html__( 'Select Page', 'subway' ),
 	));
 
-	echo '<p class="description">'. esc_html__( 'Select a page to use as a login page for your website. <strong style="color:red;">You need to add "[subway_login]" shortcode in the selected page<br> to show the login form</strong>.', 'dunhakdis' ) . '</p>';
+	echo '<p class="description">'. __( 'Select a page to use as a login page for your website. <strong style="color:red;">You need to add "[subway_login]" shortcode in the selected page<br> to show the login form</strong>.', 'dunhakdis' ) . '</p>';
 
 	return;
 }
