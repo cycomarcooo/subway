@@ -75,7 +75,7 @@ function subway_plugin_updater_init() {
 	        'zip_url' => sprintf('https://github.com/codehaiku/%s/zipball/master', $repo_name),
 	        'sslverify' => true,
 	        'requires' => '4.0',
-	        'tested' => '4.0',
+	        'tested' => '4.4.2',
 	        'readme' => 'README.md',
 	        'access_token' => '', // Access private repositories by authorizing under Appearance > GitHub Updates when this example plugin is installed
 	    );
