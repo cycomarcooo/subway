@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Subway
  * Description: A WordPress plugin that will help you make your website private. Useful for intranet websites.
- * Version: 1.1.2
+ * Version: 1.1.3
  * Author: Dunhakdis
  * Author URI: http://dunhakdis.me
  * Text Domain: subway
@@ -69,7 +69,7 @@ function subway_plugin_updater_init() {
 	    $config = array(
 	        'slug' => plugin_basename( __FILE__ ),
 	        'proper_folder_name' => 'subway',
-	        'api_url' => sprintf('https://api.github.com/codehaiku/%s', $repo_name),
+	        'api_url' => sprintf('https://api.github.com/repos/codehaiku/%s', $repo_name),
 	        'raw_url' => sprintf('https://raw.github.com/codehaiku/%s/master', $repo_name),
 	        'github_url' => sprintf('https://github.com/codehaiku/%s', $repo_name),
 	        'zip_url' => sprintf('https://github.com/codehaiku/%s/zipball/master', $repo_name),
