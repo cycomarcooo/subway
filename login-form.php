@@ -74,7 +74,7 @@ function subway_wp_login( $atts ) {
 							'message' => __( 'Google Plus Authentication Error. Invalid Client ID or Secret.', 'subway' )
 						)
 				);
-				
+
 				$message = $message_types['default']['message'];
 
 				if ( array_key_exists ( $_GET['type'], $message_types ) ) {
@@ -96,14 +96,14 @@ function subway_wp_login( $atts ) {
 	if ( isset( $_GET['_redirected'] ) ) {
 		$error_login_message = '<div id="message" class="success">'.__( 'Oops! Looks like you need to login in order to view the page.', 'subway' ).'</div>';
 	}
-		
+
 	?>
 	<div class="mg-top-35 mg-bottom-35 subway-login-form">
 		<div class="subway-login-form-form">
 			<div class="subway-login-form__actions">
 				<h3>
 					<?php _e('Account Sign-in', 'subway'); ?>
-				</h3>	
+				</h3>
 				<?php do_action( 'gears_login_form' ); ?>
 			</div>
 			<div class="subway-login-form-message">
@@ -115,19 +115,19 @@ function subway_wp_login( $atts ) {
 		</div>
 	</div>
 	<script>
-	
+
 	jQuery(document).ready(function($){
 
 		"use strict";
 
 		$(window).load( function(){
-			
+
 			var $input = $('.subway-login-form__form p > input');
 
 			if ( $input.val().length >= 1 ) {
 				$input.prev('label').addClass('inactive');
 			}
-			
+
 		});
 
 		$('.subway-login-form__form p > input').focusin(function(){
@@ -135,12 +135,12 @@ function subway_wp_login( $atts ) {
 		}).focusout(function(){
 			if ( $(this).val().length < 1 ) {
 				$(this).prev('label').removeClass('inactive');
-			} 
+			}
 		});
 	});
 	</script>
 	<?php
-			
+
 	return ob_get_clean();
 
 }
@@ -158,7 +158,7 @@ function subway_add_lost_password_link() {
  * @return  void
  */
 function subway_register_shortcode() {
-	
+
 	add_shortcode( 'subway_login', 'subway_wp_login' );
 
 	return;
