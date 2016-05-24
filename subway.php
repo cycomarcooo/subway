@@ -32,6 +32,9 @@ require_once plugin_dir_path( __FILE__ ) . 'private.php';
 // Disable Thrive-Intranet plugin if this plugin is active to prevent conflicts.
 register_activation_hook( __FILE__, 'subway_deactivate_thrive_intranet' );
 
+// Plugin l10n.
+add_action( 'plugins_loaded', 'subway_localize_plugin' );
+
 /**
  * Register our activation hook
  * This will actually deactivate the Thrive Intranet plugin.
@@ -85,4 +88,17 @@ function subway_plugin_updater_init() {
 	}
 
 	return;
+}
+
+/**
+ * Subway l10n callback.
+ * @return void
+ */
+function subway_localize_plugin() {
+
+		$rel_path = basename( dirname( __FILE__ ) ) . '/languages';
+
+    load_plugin_textdomain( 'subway', FALSE, $rel_path );
+
+    return;
 }

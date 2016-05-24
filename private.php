@@ -129,7 +129,7 @@ function subway_settings_api_init() {
 		// Add new 'Pages Visibility Settings'.
 		add_settings_section(
 			'subway_setting_section',
-			__( 'Pages Visibility Settings', 'dunhakdis' ),
+			__( 'Pages Visibility Settings', 'subway' ),
 			'subway_setting_section_callback_function',
 			'reading'
 		);
@@ -137,7 +137,7 @@ function subway_settings_api_init() {
 		// WP Options 'subway_public_post'.
 		add_settings_field(
 			'subway_public_post',
-			__( 'Display the following pages and posts in public', 'dunhakdis' ),
+			__( 'Display the following pages and posts in public', 'subway' ),
 			'subway_setting_callback_function',
 			'reading',
 			'subway_setting_section'
@@ -146,7 +146,7 @@ function subway_settings_api_init() {
 		// WP Options 'subway_is_public'.
 		add_settings_field(
 			'subway_is_public',
-			__( 'Make my Intranet public', 'dunhakdis' ),
+			__( 'Make my Intranet public', 'subway' ),
 			'subway_is_public_form',
 			'reading',
 			'subway_setting_section'
@@ -155,7 +155,7 @@ function subway_settings_api_init() {
 		// WP Options 'subway_login_page'.
 		add_settings_field(
 			'subway_login_page',
-			__( 'Login Page', 'dunhakdis' ),
+			__( 'Login Page', 'subway' ),
 			'subway_login_page_form',
 			'reading',
 			'subway_setting_section'
@@ -188,7 +188,7 @@ function subway_setting_section_callback_function() {
 function subway_setting_callback_function() {
 
 	echo '<textarea id="subway_public_post" name="subway_public_post" rows="5" cols="95">'.esc_attr( trim( get_option( 'subway_public_post' ) ) ).'</textarea>';
-	echo '<p class="description">'.esc_html__( 'Enter the IDs of posts and/or pages that you wanted to show in public. You need to separate it by ","(comma), <br>for example: 143,123,213. Alternatively, you can enable public viewing of all of your pages and posts by checking <br>the option below.', 'dunhakdis' ).'</p>';
+	echo '<p class="description">'.esc_html__( 'Enter the IDs of posts and/or pages that you wanted to show in public. You need to separate it by ","(comma), <br>for example: 143,123,213. Alternatively, you can enable public viewing of all of your pages and posts by checking <br>the option below.', 'subway' ).'</p>';
 
 	return;
 }
@@ -201,7 +201,7 @@ function subway_setting_callback_function() {
 function subway_is_public_form() {
 
 	echo '<label for="subway_is_public"><input '.checked( 1, get_option( 'subway_is_public' ), false ).' value="1" name="subway_is_public" id="subway_is_public" type="checkbox" class="code" /> Check to make all of your posts and pages public</label>';
-	echo '<p class="description">'.esc_html__( 'Pages like user profile, members, and groups are still only available to the rightful owner of the profile', 'dunhakdis' ).'</p>';
+	echo '<p class="description">'.esc_html__( 'Pages like user profile, members, and groups are still only available to the rightful owner of the profile', 'subway' ).'</p>';
 
 	return;
 }
@@ -241,7 +241,7 @@ function subway_login_page_form() {
 		'show_option_none' => esc_html__( 'Select Page', 'subway' ),
 	));
 
-	echo '<p class="description">'. __( 'Select a page to use as a login page for your website. <strong style="color:red;">You need to add "[subway_login]" shortcode in the selected page<br> to show the login form</strong>.', 'dunhakdis' ) . '</p>';
+	echo '<p class="description">'. __( 'Select a page to use as a login page for your website. <strong style="color:red;">You need to add "[subway_login]" shortcode in the selected page<br> to show the login form</strong>.', 'subway' ) . '</p>';
 
 	return;
 }
