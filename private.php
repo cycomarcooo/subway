@@ -105,15 +105,19 @@ function subway_redirect_to_login() {
 function subway_get_excluded_page_id_collection() {
 
 	$subway_public_post = get_option( 'subway_public_post' );
-		$excluded_pages_collection = array();
+
+	$excluded_pages_collection = array();
 
 	if ( ! empty( $subway_public_post ) ) {
+
 		$excluded_pages_collection = explode( ',', $subway_public_post );
+
 	}
 
-		// Should filter it by integer, spaces will be ignored, other strings.
-		// Will be converted to zero '0'.
-		return array_filter( array_map( 'intval', $excluded_pages_collection ) );
+	// Should filter it by integer, spaces will be ignored, other strings.
+	// Will be converted to zero '0'.
+	return array_filter( array_map( 'intval', $excluded_pages_collection ) );
+
 }
 
 add_action( 'admin_init', 'subway_settings_api_init' );
