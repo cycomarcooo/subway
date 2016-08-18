@@ -8,7 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) { die(); }
 add_action( 'init', 'subway_redirect_login' );
 
 // redirect the user after successful logged in attempt
-add_filter( 'login_redirect', 'subway_redirect_user_after_logged_in', 10, 3 );
+// add_filter( 'login_redirect', 'subway_redirect_user_after_logged_in', 10, 3 );
 
 // handle failed login redirection
 add_action( 'wp_login_failed', 'subway_redirect_login_handle_failure' );
@@ -22,8 +22,7 @@ add_action( 'wp_login_failed', 'subway_redirect_login_handle_failure' );
 function subway_redirect_login() {
 
 	// Only run this function when on wp-login.php
-	if ( ! in_array( $GLOBALS['pagenow'], array( 'wp-login.php' ) ) )
-	{
+	if ( ! in_array( $GLOBALS['pagenow'], array( 'wp-login.php' ) ) ) {
 		return;
 	}
 
@@ -46,8 +45,8 @@ function subway_redirect_login() {
 
 		$redirect_to = add_query_arg( array(
 				'login' => 'failed',
-				'type' => $has_type
-			), $redirect_page );
+				'type' => $has_type,
+		), $redirect_page );
 
 		wp_safe_redirect( esc_url_raw( $redirect_to ) );
 
@@ -71,12 +70,11 @@ function subway_redirect_login() {
 	}
 
 	// Check if buddypress registration page.
-	if ( function_exists('bp_is_register_page')) {
+	if ( function_exists( 'bp_is_register_page' ) ) {
 		if ( bp_is_register_page() ) {
 			return;
 		}
 	}
-
 
 	// Store for checking if this page equals wp-login.php.
 	$curr_paged = basename( $_SERVER['REQUEST_URI'] );
@@ -90,7 +88,7 @@ function subway_redirect_login() {
 	// if user visits wp-admin or wp-login.php, redirect them
 	if ( strstr( $curr_paged, 'wp-login.php' ) ) {
 
-		if ( isset( $_GET[ 'interim-login' ] ) ) {
+		if ( isset( $_GET['interim-login'] ) ) {
 			return;
 		}
 
@@ -115,40 +113,32 @@ function subway_redirect_login() {
 		// Redirect to error page if user left username and password blank
 		if ( ! empty( $_POST ) ) {
 
-			if ( empty( $_POST['log'] ) && empty( $_POST['pwd'] ) )
-			{
+			if ( empty( $_POST['log'] ) && empty( $_POST['pwd'] ) ) {
 				$redirect_to = add_query_arg( array(
 						'login' => 'failed',
-						'type' => '__blank'
-					), $redirect_page );
+						'type' => '__blank',
+				), $redirect_page );
 
 				wp_safe_redirect( esc_url_raw( $redirect_to ) );
-			}
-			elseif ( empty( $_POST['log'] ) && ! empty( $_POST['pwd'] ) && ! empty( $_POST['redirect_to'] ) )
-			{
+			} elseif ( empty( $_POST['log'] ) && ! empty( $_POST['pwd'] ) && ! empty( $_POST['redirect_to'] ) ) {
 				// Username empty
 				$redirect_to = add_query_arg( array(
 						'login' => 'failed',
-						'type' => '__userempty'
-					), $redirect_page );
+						'type' => '__userempty',
+				), $redirect_page );
 
 				wp_safe_redirect( esc_url_raw( $redirect_to ) );
-			}
-			elseif ( ! empty( $_POST['log'] ) && empty( $_POST['pwd'] ) && ! empty( $_POST['redirect_to'] ) )
-			{
+			} elseif ( ! empty( $_POST['log'] ) && empty( $_POST['pwd'] ) && ! empty( $_POST['redirect_to'] ) ) {
 				// Password empty
 				$redirect_to = add_query_arg( array(
 						'login' => 'failed',
-						'type' => '__passempty'
-					), $redirect_page );
+						'type' => '__passempty',
+				), $redirect_page );
 
 				wp_safe_redirect( esc_url_raw( $redirect_to ) );
-			}
-			else
-			{
+			} else {
 				wp_safe_redirect( $redirect_page );
 			}
-
 		}
 	}
 
@@ -175,21 +165,6 @@ function subway_redirect_user_after_logged_in( $redirect_to, $request, $user ) {
 
 	}
 
-	if ( isset( $user->ID ) ) {
-
-		// check if buddypress is active
-		if ( function_exists( 'bp_core_get_user_domain' ) ) {
-
-			return apply_filters( 'subway_login_redirect', bp_core_get_user_domain( $user->ID ) );
-
-			// otherwise, throw the user into homepage
-		} else {
-
-			return apply_filters( 'subway_login_redirect', home_url() );
-
-		}
-	}
-	// double edge sword
 	return $redirect_to;
 }
 
@@ -213,7 +188,7 @@ function subway_redirect_login_handle_failure( $user ) {
 	}
 
 	// check that were not on the default login page
-	if ( ! empty( $sign_in_page ) && ! strstr( $sign_in_page,'wp-login' ) && ! strstr( $sign_in_page,'wp-admin' ) && $user != null ) {
+	if ( ! empty( $sign_in_page ) && ! strstr( $sign_in_page,'wp-login' ) && ! strstr( $sign_in_page,'wp-admin' ) && null !== $user ) {
 
 		// make sure we don't already have a failed login attempt.
 		if ( ! strstr( $sign_in_page, '?login=failed' ) ) {
@@ -250,7 +225,7 @@ function subway_get_redirect_page_url() {
 
 	$selected_login_post_id = intval( get_option( 'subway_login_page' ) );
 
-	if ( $selected_login_post_id === 0 ) {
+	if ( 0 === $selected_login_post_id ) {
 
 		return;
 
