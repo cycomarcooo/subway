@@ -33,9 +33,11 @@ function subway_wp_login( $atts ) {
 	    'remember'       => true,
 	    'value_username' => '',
 	    'value_remember' => false,
+		'redirect' 		 => home_url(),
 	);
 
 	$error_login_message = '';
+
 	$message_types = array();
 
 	if ( isset( $_GET['login'] ) ) {
@@ -47,37 +49,37 @@ function subway_wp_login( $atts ) {
 				$message_types = array(
 
 					'default' => array(
-							'message' => __('Error: There was an error trying to sign-in to your account. Make sure your credentials are correct', 'subway')
+							'message' => __( 'Error: There was an error trying to sign-in to your account. Make sure your credentials are correct', 'subway' ),
 						),
 					'__blank' => array(
-							'message' => __( 'Required: Username and Password cannot not be empty.', 'subway' )
+							'message' => __( 'Required: Username and Password cannot not be empty.', 'subway' ),
 						),
 					'__userempty' => array(
-							'message' => __( 'Required: Username cannot not be empty.', 'subway' )
+							'message' => __( 'Required: Username cannot not be empty.', 'subway' ),
 						),
 					'__passempty' => array(
-							'message' => __( 'Required: Password cannot not be empty.', 'subway' )
+							'message' => __( 'Required: Password cannot not be empty.', 'subway' ),
 						),
 					'fb_invalid_email' => array(
-							'message' => __( 'Facebook email is invalid or is not verified.', 'subway' )
+							'message' => __( 'Facebook email is invalid or is not verified.', 'subway' ),
 						),
 					'fb_error' => array(
-							'message' => __( 'Facebook Application Error. Misconfig or App is rejected.', 'subway' )
+							'message' => __( 'Facebook Application Error. Misconfig or App is rejected.', 'subway' ),
 						),
 					'app_not_live' => array(
-							'message' => __( 'Unable to fetch your Facebook profile.', 'subway' )
+							'message' => __( 'Unable to fetch your Facebook profile.', 'subway' ),
 						),
 					'gears_username_or_email_exists' => array(
-							'message' => __('Username or e-mail already exists', 'subway')
+							'message' => __( 'Username or e-mail already exists', 'subway' ),
 						),
 					'gp_error_authentication' => array(
-							'message' => __( 'Google Plus Authentication Error. Invalid Client ID or Secret.', 'subway' )
-						)
+							'message' => __( 'Google Plus Authentication Error. Invalid Client ID or Secret.', 'subway' ),
+						),
 				);
 
 				$message = $message_types['default']['message'];
 
-				if ( array_key_exists ( $_GET['type'], $message_types ) ) {
+				if ( array_key_exists( $_GET['type'], $message_types ) ) {
 
 					$message = $message_types[ $_GET['type'] ]['message'];
 
@@ -98,22 +100,30 @@ function subway_wp_login( $atts ) {
 	}
 
 	?>
-	<div class="mg-top-35 mg-bottom-35 subway-login-form">
-		<div class="subway-login-form-form">
-			<div class="subway-login-form__actions">
-				<h3>
-					<?php _e('Account Sign-in', 'subway'); ?>
-				</h3>
-				<?php do_action( 'gears_login_form' ); ?>
-			</div>
-			<div class="subway-login-form-message">
-				<?php echo $error_login_message; ?>
-			</div>
-			<div class="subway-login-form__form">
-				<?php echo wp_login_form( $args ); ?>
+	<?php if ( ! is_user_logged_in() ) { ?>
+		<div class="mg-top-35 mg-bottom-35 subway-login-form">
+			<div class="subway-login-form-form">
+				<div class="subway-login-form__actions">
+					<h3>
+						<?php _e( 'Account Sign-in', 'subway' ); ?>
+					</h3>
+					<?php do_action( 'gears_login_form' ); ?>
+				</div>
+				<div class="subway-login-form-message">
+					<?php echo $error_login_message; ?>
+				</div>
+				<div class="subway-login-form__form">
+					<?php echo wp_login_form( $args ); ?>
+				</div>
 			</div>
 		</div>
-	</div>
+	<?php } else { ?>
+		<div class="mg-top-35 mg-bottom-35 subway-login-sucessfull">
+			<p>
+				<?php echo esc_html__( apply_filters( 'subway_login_message', 'You have succesfully login.' ), 'subway' ); ?>
+			</p>
+		</div>
+	<?php } ?>
 	<script>
 
 	jQuery(document).ready(function($){
@@ -149,7 +159,7 @@ add_action( 'login_form_middle', 'subway_add_lost_password_link' );
 
 function subway_add_lost_password_link() {
 
-	return '<p class="subway-login-lost-password"><a href="'.esc_url( wp_lostpassword_url( $redirect = "" ) ).'">' . __('Forgot Password', 'subway') . '</a></p>';
+	return '<p class="subway-login-lost-password"><a href="'.esc_url( wp_lostpassword_url( $redirect = '' ) ).'">' . __( 'Forgot Password', 'subway' ) . '</a></p>';
 
 }
 
