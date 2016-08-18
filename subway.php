@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Subway
  * Description: A WordPress plugin that will help you make your website private. Useful for intranet websites.
- * Version: 1.1.5
+ * Version: 1.1.7
  * Author: Dunhakdis
  * Author URI: http://dunhakdis.me
  * Text Domain: subway
@@ -72,10 +72,10 @@ function subway_plugin_updater_init() {
 	    $config = array(
 	        'slug' => plugin_basename( __FILE__ ),
 	        'proper_folder_name' => 'subway',
-	        'api_url' => sprintf('https://api.github.com/repos/codehaiku/%s', $repo_name),
-	        'raw_url' => sprintf('https://raw.github.com/codehaiku/%s/master', $repo_name),
-	        'github_url' => sprintf('https://github.com/codehaiku/%s', $repo_name),
-	        'zip_url' => sprintf('https://github.com/codehaiku/%s/zipball/master', $repo_name),
+	        'api_url' => sprintf( 'https://api.github.com/repos/codehaiku/%s', $repo_name ),
+	        'raw_url' => sprintf( 'https://raw.github.com/codehaiku/%s/master', $repo_name ),
+	        'github_url' => sprintf( 'https://github.com/codehaiku/%s', $repo_name ),
+	        'zip_url' => sprintf( 'https://github.com/codehaiku/%s/zipball/master', $repo_name ),
 	        'sslverify' => true,
 	        'requires' => '4.0',
 	        'tested' => '4.4.2',
@@ -83,7 +83,7 @@ function subway_plugin_updater_init() {
 	        'access_token' => '', // Access private repositories by authorizing under Appearance > GitHub Updates when this example plugin is installed
 	    );
 
-    	new WP_GitHub_Updater( $config );
+		new WP_GitHub_Updater( $config );
 
 	}
 
@@ -96,9 +96,9 @@ function subway_plugin_updater_init() {
  */
 function subway_localize_plugin() {
 
-		$rel_path = basename( dirname( __FILE__ ) ) . '/languages';
+	$rel_path = basename( dirname( __FILE__ ) ) . '/languages';
 
-    load_plugin_textdomain( 'subway', FALSE, $rel_path );
+	load_plugin_textdomain( 'subway', false, $rel_path );
 
-    return;
+	return;
 }
