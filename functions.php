@@ -14,15 +14,15 @@ add_filter( 'login_redirect', 'subway_redirect_user_after_logged_in', 10, 3 );
 add_action( 'wp_login_failed', 'subway_redirect_login_handle_failure' );
 
 /**
- * Redirect all wp-login.php post 
+ * Redirect all wp-login.php post
  * and get request to the user assigned log-in page
  *
  * @return void
  */
 function subway_redirect_login() {
 
-	// Only run this function when on wp-login.php 
-	if ( ! in_array( $GLOBALS['pagenow'], array( 'wp-login.php' ) ) ) 
+	// Only run this function when on wp-login.php
+	if ( ! in_array( $GLOBALS['pagenow'], array( 'wp-login.php' ) ) )
 	{
 		return;
 	}
@@ -115,7 +115,7 @@ function subway_redirect_login() {
 		// Redirect to error page if user left username and password blank
 		if ( ! empty( $_POST ) ) {
 
-			if ( empty( $_POST['log'] ) && empty( $_POST['pwd'] ) ) 
+			if ( empty( $_POST['log'] ) && empty( $_POST['pwd'] ) )
 			{
 				$redirect_to = add_query_arg( array(
 						'login' => 'failed',
@@ -123,8 +123,8 @@ function subway_redirect_login() {
 					), $redirect_page );
 
 				wp_safe_redirect( esc_url_raw( $redirect_to ) );
-			} 
-			elseif ( empty( $_POST['log'] ) && ! empty( $_POST['pwd'] ) && ! empty( $_POST['redirect_to'] ) ) 
+			}
+			elseif ( empty( $_POST['log'] ) && ! empty( $_POST['pwd'] ) && ! empty( $_POST['redirect_to'] ) )
 			{
 				// Username empty
 				$redirect_to = add_query_arg( array(
@@ -133,8 +133,8 @@ function subway_redirect_login() {
 					), $redirect_page );
 
 				wp_safe_redirect( esc_url_raw( $redirect_to ) );
-			} 
-			elseif ( ! empty( $_POST['log'] ) && empty( $_POST['pwd'] ) && ! empty( $_POST['redirect_to'] ) ) 
+			}
+			elseif ( ! empty( $_POST['log'] ) && empty( $_POST['pwd'] ) && ! empty( $_POST['redirect_to'] ) )
 			{
 				// Password empty
 				$redirect_to = add_query_arg( array(
@@ -143,8 +143,8 @@ function subway_redirect_login() {
 					), $redirect_page );
 
 				wp_safe_redirect( esc_url_raw( $redirect_to ) );
-			} 
-			else 
+			}
+			else
 			{
 				wp_safe_redirect( $redirect_page );
 			}
