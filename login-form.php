@@ -19,22 +19,22 @@ function subway_wp_login( $atts ) {
 	// begin output buffering
 	ob_start();
 
-	$args = array(
-	    'echo'           => true,
-	    'form_id'        => 'loginform',
-	    'label_username' => __( 'Username', 'subway' ),
-	    'label_password' => __( 'Password', 'subway' ),
-	    'label_remember' => __( 'Remember Me', 'subway' ),
-	    'label_log_in'   => __( 'Log In', 'subway' ),
-	    'id_username'    => 'user_login',
-	    'id_password'    => 'user_pass',
-	    'id_remember'    => 'rememberme',
-	    'id_submit'      => 'wp-submit',
-	    'remember'       => true,
-	    'value_username' => '',
-	    'value_remember' => false,
-		'redirect' 		 => home_url(),
-	);
+    $atts = shortcode_atts( array(
+        'echo'           => true,
+        'form_id'        => 'loginform',
+        'label_username' => __( 'Username or Email' ),
+        'label_password' => __( 'Password', 'subway' ),
+        'label_remember' => __( 'Remember Me', 'subway' ),
+        'label_log_in'   => __( 'Log In', 'subway' ),
+        'id_username'    => 'user_login',
+        'id_password'    => 'user_pass',
+        'id_remember'    => 'rememberme',
+        'id_submit'      => 'wp-submit',
+        'remember'       => true,
+        'value_username' => '',
+        'value_remember' => false,
+        'redirect'       => home_url(),
+    ), $atts );
 
 	$error_login_message = '';
 
@@ -113,7 +113,7 @@ function subway_wp_login( $atts ) {
 					<?php echo $error_login_message; ?>
 				</div>
 				<div class="subway-login-form__form">
-					<?php echo wp_login_form( $args ); ?>
+					<?php echo wp_login_form( $atts ); ?>
 				</div>
 			</div>
 		</div>
