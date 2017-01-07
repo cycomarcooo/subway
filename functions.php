@@ -8,7 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) { die(); }
 add_action( 'init', 'subway_redirect_login' );
 
 // redirect the user after successful logged in attempt
-// add_filter( 'login_redirect', 'subway_redirect_user_after_logged_in', 10, 3 );
+add_filter( 'login_redirect', 'subway_redirect_user_after_logged_in', 10, 3 );
 
 // handle failed login redirection
 add_action( 'wp_login_failed', 'subway_redirect_login_handle_failure' );
@@ -157,13 +157,52 @@ function subway_redirect_login() {
  */
 function subway_redirect_user_after_logged_in( $redirect_to, $request, $user ) {
 
-	global $user;
+	$subway_redirect_type = get_option( 'subway_redirect_type' );
 
-	if ( empty( $user ) ) {
-
+	// Redirect the user to default behaviour if there are no redirect type option saved.
+	if ( empty ( $subway_redirect_type ) ) {
 		return $redirect_to;
-
 	}
+
+	if ( "page" === $subway_redirect_type ) {
+		
+		// Get the page url of the selected page if the admin selected 'Custom Page' in the redirect type settings.
+		
+		$selected_redirect_page = intval( get_option( 'subway_redirect_page_id' ) );
+
+		// Redirect to default WordPress behaviour if the user did not select page.
+		if ( empty ( $selected_redirect_page ) ) {
+
+			return $redirect_to;
+		}
+
+		// Otherwise, get the permalink of the saved page and let the user go into that page.
+		return get_permalink( $selected_redirect_page );
+
+	} elseif ( "custom_url" === $subway_redirect_type ) {
+
+		// Get the custom url saved in the redirect type settings.
+		$entered_custom_url = get_option( 'subway_redirect_custom_url' );
+
+		// Redirect to default WordPress behaviour if the user did enter a custom url.
+		if ( empty ( $entered_custom_url ) ) {
+
+			return $redirect_to;
+
+		}
+
+		// Otherwise, get the custom url saved and let the user go into that page.
+		$current_user = wp_get_current_user();
+
+		$entered_custom_url = str_replace('%user_id%', $user->ID, $entered_custom_url);
+
+		$entered_custom_url = str_replace('%user_name%', $user->user_login, $entered_custom_url);
+
+		return $entered_custom_url;
+		
+	} 
+
+	// Otherwise, quit and redirect the user back to default WordPress behaviour.
 
 	return $redirect_to;
 }
