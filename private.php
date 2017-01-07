@@ -141,7 +141,7 @@ function subway_settings_api_init() {
 		// WP Options 'subway_public_post'.
 		add_settings_field(
 			'subway_public_post',
-			__( 'Display the following pages and posts in public', 'subway' ),
+			__( 'Public Posts IDs', 'subway' ),
 			'subway_setting_callback_function',
 			'reading',
 			'subway_setting_section'
@@ -150,7 +150,7 @@ function subway_settings_api_init() {
 		// WP Options 'subway_is_public'.
 		add_settings_field(
 			'subway_is_public',
-			__( 'Make my Intranet public', 'subway' ),
+			__( 'Public Website', 'subway' ),
 			'subway_is_public_form',
 			'reading',
 			'subway_setting_section'
@@ -165,10 +165,20 @@ function subway_settings_api_init() {
 			'subway_setting_section'
 		);
 
+		// WP Options 'subway_redirect_option'.
+		add_settings_field(
+			'subway_redirect_option',
+			__( 'Redirect Type', 'subway' ),
+			'subway_redirect_option',
+			'reading',
+			'subway_setting_section'
+		);
+
 		// Register all the callback settings id.
 		register_setting( 'reading', 'subway_public_post' );
 		register_setting( 'reading', 'subway_is_public' );
 		register_setting( 'reading', 'subway_login_page' );
+		register_setting( 'reading', 'subway_redirect_option' );
 
 }
 
@@ -204,7 +214,7 @@ function subway_setting_callback_function() {
  */
 function subway_is_public_form() {
 
-	echo '<label for="subway_is_public"><input '.checked( 1, get_option( 'subway_is_public' ), false ).' value="1" name="subway_is_public" id="subway_is_public" type="checkbox" class="code" /> Check to make all of your posts and pages public</label>';
+	echo '<label for="subway_is_public"><input '.checked( 1, get_option( 'subway_is_public' ), false ).' value="1" name="subway_is_public" id="subway_is_public" type="checkbox" class="code" /> Check to make all of your posts and pages visible to public.</label>';
 	echo '<p class="description">'.esc_html__( 'Pages like user profile, members, and groups are still only available to the rightful owner of the profile', 'subway' ).'</p>';
 
 	return;
@@ -245,7 +255,112 @@ function subway_login_page_form() {
 		'show_option_none' => esc_html__( 'Select Page', 'subway' ),
 	));
 
-	echo '<p class="description">'. __( 'Select a page to use as a login page for your website. <strong style="color:red;">You need to add "[subway_login]" shortcode in the selected page<br> to show the login form</strong>.', 'subway' ) . '</p>';
+	echo '<p class="description">'. __( 'Select a page to use as a login page for your website. By selecting a login page and saving the changes will make your website private.  <strong style="color:red;">You need to add "[subway_login]" shortcode in the selected page to show the login form</strong>.', 'subway' ) . '</p>';
 
 	return;
+}
+
+/**
+ * Callback function for 'subway_redirect_option' setting.
+ * @return void
+ */
+function subway_redirect_option() {
+	?>
+
+	<style>
+		
+		.subway-redirect-option-section {
+		    background: #fff;
+		    padding: 15px 20px;
+		    margin: 15px 0;
+		}
+
+	</style>
+	
+	<p>
+		<!-- Page -->
+		<label for="subway_use_page">
+			<input <?php echo checked( 1, get_option( 'subway_use_page' ), false ); ?>
+			value="1" name="subway_redirect_type" id="subway_use_page" type="radio" class="code" /> 
+			<?php esc_html_e('Custom Page', 'subway'); ?>
+		</label>
+
+		&nbsp;&nbsp;&nbsp;
+
+		<!-- Custom URL -->
+		<label for="subway_use_custom_url">
+			<input <?php echo checked( 1, get_option( 'subway_use_custom_url' ), false ); ?>
+			value="1" name="subway_redirect_type" id="subway_use_custom_url" type="radio" class="code" /> 
+			<?php esc_html_e('Custom URL', 'subway'); ?>
+		</label>
+	</p>
+
+	<p class="description">
+		<?php 
+			esc_html_e('Where do you want your members to go after logging in? 
+			You can choose page or you can also enter a custom url in the textfield above.' , 'subway'); 
+		?>
+	</p>
+	
+	<div id="subway_redirect_page_option_section" class="hidden subway-redirect-option-section">
+		<?php
+			// Choosing page for redirect
+			wp_dropdown_pages( array(
+				'name' => 'subway_redirect_page_option',
+				'selected' => intval( 0 ),
+				'show_option_none' => esc_html__( 'Select Page', 'subway' ),
+			));
+		?>
+	</div>
+
+	<div id="subway_redirect_custom_url_option_section" class="hidden subway-redirect-option-section">
+		
+		<label for="subway_custom_url_field">
+			<?php esc_attr_e('Enter Redirect URL:', 'subway'); ?>
+		</label>
+
+		<input type="text" name="subway_custom_url_field" placeholder="<?php esc_attr_e("http://", "subway"); ?>" 
+		id="subway_custom_url_field" size="75" disabled />
+
+		<p class="description">
+			<?php 
+			esc_html_e('When entering a custom domain, you can use variable string such us: {user_id} and {user_name}. For example: http://yoursiteurl.com/members/{user_name} will translate to http://yoursiteurl/members/admin where "admin" is equal to the {user_name} variable' , 'subway'); 
+		?>
+		</p>
+
+	</div>
+
+
+	<script>
+		jQuery(document).ready(function($){
+			"use strict";
+			
+			$("#subway_use_page").on('click', function(){
+				if( $('#subway_use_page').is(':checked')) { 
+
+					$('#subway_custom_url_field').attr('disabled', 'disabled');
+					$('#subway_redirect_page_option').removeAttr('disabled');
+
+					$('#subway_redirect_custom_url_option_section').addClass('hidden');
+					$('#subway_redirect_page_option_section').removeClass('hidden');
+
+				}	
+			});
+
+			$("#subway_use_custom_url").on('click', function(){
+
+				if( $('#subway_use_custom_url').is(':checked')) { 
+					
+					$('#subway_redirect_page_option').attr('disabled', 'disabled');
+					$('#subway_custom_url_field').removeAttr('disabled');
+
+					$('#subway_redirect_custom_url_option_section').removeClass('hidden');
+					$('#subway_redirect_page_option_section').addClass('hidden');
+
+				}	
+			});
+
+		});
+	</script>
+	<?php
 }
