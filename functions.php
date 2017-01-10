@@ -1,16 +1,19 @@
 <?php
 /**
- * Includes all the file necessary for Thrive Intranet Plugin
+ * Includes all the file necessary for Subway.
+ *
+ * @package  Subway
  */
+
 if ( ! defined( 'ABSPATH' ) ) { die(); }
 
-// redirect the user when he/she visit wp-admin or wp-login.php
+// Redirect the user when he/she visit wp-admin or wp-login.php.
 add_action( 'init', 'subway_redirect_login' );
 
-// redirect the user after successful logged in attempt
-// add_filter( 'login_redirect', 'subway_redirect_user_after_logged_in', 10, 3 );
+// Redirect the user after successful logged in attempt.
+add_filter( 'login_redirect', 'subway_redirect_user_after_logged_in', 10, 3 );
 
-// handle failed login redirection
+// Handle failed login redirection.
 add_action( 'wp_login_failed', 'subway_redirect_login_handle_failure' );
 
 /**
@@ -21,24 +24,24 @@ add_action( 'wp_login_failed', 'subway_redirect_login_handle_failure' );
  */
 function subway_redirect_login() {
 
-	// Only run this function when on wp-login.php
-	if ( ! in_array( $GLOBALS['pagenow'], array( 'wp-login.php' ) ) ) {
+	// Only run this function when on wp-login.php.
+	if ( ! in_array( $GLOBALS['pagenow'], array( 'wp-login.php' ), true ) ) {
 		return;
 	}
 
 	// Bypass login if specified.
 	$no_redirect = filter_input( INPUT_GET, 'no_redirect', FILTER_VALIDATE_BOOLEAN );
 
-	// Bypass wp-login.php?action=*
+	// Bypass wp-login.php?action=*.
 	$has_action = filter_input( INPUT_GET, 'action', FILTER_SANITIZE_STRING );
 
-	// Has errors?
+	// Has any errors?
 	$has_error = filter_input( INPUT_GET, 'error', FILTER_SANITIZE_STRING );
 
-	// Error Types
+	// Error Types.
 	$has_type = filter_input( INPUT_GET, 'type', FILTER_SANITIZE_STRING );
 
-	// Set the default to our login page
+	// Set the default to our login page.
 	$redirect_page = subway_get_redirect_page_url();
 
 	if ( $has_error && $has_type ) {
@@ -85,15 +88,14 @@ function subway_redirect_login() {
 
 	}
 
-	// if user visits wp-admin or wp-login.php, redirect them
+	// Ff user visits wp-admin or wp-login.php, redirect them.
 	if ( strstr( $curr_paged, 'wp-login.php' ) ) {
 
 		if ( isset( $_GET['interim-login'] ) ) {
 			return;
 		}
 
-		// check if there is an action present
-		// action might represent user trying to log out
+		// Check if there is an action present action might represent user trying to log out.
 		if ( isset( $_GET['action'] ) ) {
 
 			$action = $_GET['action'];
@@ -110,7 +112,7 @@ function subway_redirect_login() {
 			wp_safe_redirect( $redirect_page );
 		}
 
-		// Redirect to error page if user left username and password blank
+		// Redirect to error page if user left username and password blank.
 		if ( ! empty( $_POST ) ) {
 
 			if ( empty( $_POST['log'] ) && empty( $_POST['pwd'] ) ) {
@@ -121,7 +123,7 @@ function subway_redirect_login() {
 
 				wp_safe_redirect( esc_url_raw( $redirect_to ) );
 			} elseif ( empty( $_POST['log'] ) && ! empty( $_POST['pwd'] ) && ! empty( $_POST['redirect_to'] ) ) {
-				// Username empty
+				// Username empty.
 				$redirect_to = add_query_arg( array(
 						'login' => 'failed',
 						'type' => '__userempty',
@@ -129,7 +131,7 @@ function subway_redirect_login() {
 
 				wp_safe_redirect( esc_url_raw( $redirect_to ) );
 			} elseif ( ! empty( $_POST['log'] ) && empty( $_POST['pwd'] ) && ! empty( $_POST['redirect_to'] ) ) {
-				// Password empty
+				// Password empty.
 				$redirect_to = add_query_arg( array(
 						'login' => 'failed',
 						'type' => '__passempty',
@@ -146,37 +148,78 @@ function subway_redirect_login() {
 }
 
 /**
- * Redirects the user to homepage after logged-in
- * if buddypress is present, then it will redirect the
- * user to it's profile page
+ * Redirects the user to selected page or custom url.
  *
- * @param  string $redirect_to 'login_redirect' filter callback argument
- * @param  object $request     'login_redirect' filter callback argument
- * @param  object $user        'login_redirect' filter callback argument
+ * @param  string $redirect_to 'login_redirect' filter callback argument that holds the current $redirect_to value.
+ * @param  object $request     'login_redirect' filter callback argument that holds request header.
+ * @param  object $user        'login_redirect' filter callback argument that holds logged in user info.
  * @return string              The final redirection url
  */
 function subway_redirect_user_after_logged_in( $redirect_to, $request, $user ) {
 
-	global $user;
+	$subway_redirect_type = get_option( 'subway_redirect_type' );
 
-	if ( empty( $user ) ) {
+	// Redirect the user to default behaviour if there are no redirect type option saved.
+	if ( empty( $subway_redirect_type ) ) {
 
 		return $redirect_to;
 
 	}
 
+	if ( 'default' === $subway_redirect_type ) {
+		return $redirect_to;
+	}
+
+	if ( 'page' === $subway_redirect_type ) {
+
+		// Get the page url of the selected page if the admin selected 'Custom Page' in the redirect type settings.
+		$selected_redirect_page = intval( get_option( 'subway_redirect_page_id' ) );
+
+		// Redirect to default WordPress behaviour if the user did not select page.
+		if ( empty( $selected_redirect_page ) ) {
+
+			return $redirect_to;
+		}
+
+		// Otherwise, get the permalink of the saved page and let the user go into that page.
+		return get_permalink( $selected_redirect_page );
+
+	} elseif ( 'custom_url' === $subway_redirect_type ) {
+
+		// Get the custom url saved in the redirect type settings.
+		$entered_custom_url = get_option( 'subway_redirect_custom_url' );
+
+		// Redirect to default WordPress behaviour if the user did enter a custom url.
+		if ( empty( $entered_custom_url ) ) {
+
+			return $redirect_to;
+
+		}
+
+		// Otherwise, get the custom url saved and let the user go into that page.
+		$current_user = wp_get_current_user();
+
+		$entered_custom_url = str_replace( '%user_id%', $user->ID, $entered_custom_url );
+
+		$entered_custom_url = str_replace( '%user_name%', $user->user_login, $entered_custom_url );
+
+		return $entered_custom_url;
+
+	}
+
+	// Otherwise, quit and redirect the user back to default WordPress behaviour.
 	return $redirect_to;
 }
 
 /**
- * Handles the failure login attempt from customized login page
+ * Handles the failure login attempt from customized login page.
  *
- * @param  object $user WordPress callback function
+ * @param  object $user WordPress callback function.
  * @return void
  */
 function subway_redirect_login_handle_failure( $user ) {
 
-	// Pull the sign-in page url
+	// Pull the sign-in page url.
 	$sign_in_page = wp_login_url();
 
 	$custom_sign_in_page_url = subway_get_redirect_page_url();
@@ -187,7 +230,7 @@ function subway_redirect_login_handle_failure( $user ) {
 
 	}
 
-	// check that were not on the default login page
+	// Check that were not on the default login page.
 	if ( ! empty( $sign_in_page ) && ! strstr( $sign_in_page,'wp-login' ) && ! strstr( $sign_in_page,'wp-admin' ) && null !== $user ) {
 
 		// make sure we don't already have a failed login attempt.
@@ -242,4 +285,3 @@ function subway_get_redirect_page_url() {
 	return false;
 
 }
-?>

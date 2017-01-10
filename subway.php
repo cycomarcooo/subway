@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Subway
  * Description: A WordPress plugin that will help you make your website private. Useful for intranet websites.
- * Version: 1.1.7
+ * Version: 1.1.8
  * Author: Dunhakdis
  * Author URI: http://dunhakdis.me
  * Text Domain: subway
@@ -80,7 +80,7 @@ function subway_plugin_updater_init() {
 	        'requires' => '4.0',
 	        'tested' => '4.4.2',
 	        'readme' => 'README.md',
-	        'access_token' => '', // Access private repositories by authorizing under Appearance > GitHub Updates when this example plugin is installed
+	        'access_token' => '',
 	    );
 
 		new WP_GitHub_Updater( $config );
@@ -92,6 +92,7 @@ function subway_plugin_updater_init() {
 
 /**
  * Subway l10n callback.
+ *
  * @return void
  */
 function subway_localize_plugin() {
