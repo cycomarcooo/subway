@@ -139,7 +139,14 @@ function subway_redirect_login() {
 
 				wp_safe_redirect( esc_url_raw( $redirect_to ) );
 			} else {
-				wp_safe_redirect( $redirect_page );
+
+				// Generic.
+				$redirect_to = add_query_arg( array(
+						'login' => 'failed',
+						'type' => 'default',
+				), $redirect_page );
+
+				wp_safe_redirect( esc_url_raw( $redirect_to ) );
 			}
 		}
 	}
@@ -239,6 +246,7 @@ function subway_redirect_login_handle_failure( $user ) {
 			// Redirect to the login page and append a querystring of login failed.
 			$permalink = add_query_arg( array(
 	    		'login' => 'failed',
+	    		'type' => 'default',
 			), $custom_sign_in_page_url );
 
 	  		wp_safe_redirect( esc_url_raw( $permalink ) );
@@ -284,4 +292,10 @@ function subway_get_redirect_page_url() {
 
 	return false;
 
+}
+
+function subway_integrate_login_form_filter( $contents ) {
+	ob_start();
+	do_action('login_form');
+	return ob_get_clean() . $contents;
 }

@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Subway
  * Description: A WordPress plugin that will help you make your website private. Useful for intranet websites.
- * Version: 1.1.8
+ * Version: 1.2.0
  * Author: Dunhakdis
  * Author URI: http://dunhakdis.me
  * Text Domain: subway
