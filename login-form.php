@@ -42,11 +42,7 @@ function subway_wp_login( $atts ) {
 
 	$message_types = array();
 
-	add_filter('login_form_middle', function( $contents ){
-		ob_start();
-		do_action('login_form');
-		return ob_get_clean();
-	});
+	add_filter('login_form_middle', 'subway_integrate_login_form_filter');
 
 	if ( isset( $_GET['login'] ) ) {
 
