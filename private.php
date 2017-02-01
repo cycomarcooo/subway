@@ -25,6 +25,8 @@ if ( 1 !== $subway_publitize_web ) {
  * @return void
  */
 function subway_redirect_to_login() {
+	
+	session_start();
 
 	global $post;
 
@@ -76,13 +78,24 @@ function subway_redirect_to_login() {
 		}
 	}
 
+	
+	if ( isset( $_SESSION['redirected'] ) )  {
+		
+		unset( $_SESSION['redirected'] );
+		
+		return;
+
+	}
+	
 	// Only execute the script for non-loggedin visitors.
 	if ( ! is_user_logged_in() ) {
 
 		if ( $current_page_id !== $login_page_id ) {
-
+			
 			if ( ! in_array( $current_page_id, $excluded_page, true ) ) {
-
+				
+				$_SESSION['redirected'] = true;
+				
 				wp_safe_redirect( add_query_arg( array( '_redirected' => 'yes' ), $redirect_page ) );
 
 				die();

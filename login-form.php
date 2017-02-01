@@ -14,6 +14,8 @@ if ( ! defined( 'ABSPATH' ) ) { die(); }
  * @param  array $atts shortcode callback attributes
  * @return string 	output_buffer
  */
+
+
 function subway_wp_login( $atts ) {
 
 	// begin output buffering
@@ -40,6 +42,12 @@ function subway_wp_login( $atts ) {
 
 	$message_types = array();
 
+	add_filter('login_form_middle', function( $contents ){
+		ob_start();
+		do_action('login_form');
+		return ob_get_clean();
+	});
+
 	if ( isset( $_GET['login'] ) ) {
 
 		if ( 'failed' === $_GET['login'] ) {
@@ -49,28 +57,28 @@ function subway_wp_login( $atts ) {
 				$message_types = array(
 
 					'default' => array(
-							'message' => __( 'Error: There was an error trying to sign-in to your account. Make sure your credentials are correct', 'subway' ),
+							'message' => __( 'There was an error trying to sign-in to your account. Make sure the credentials below are correct.', 'subway' ),
 						),
 					'__blank' => array(
-							'message' => __( 'Required: Username and Password cannot not be empty.', 'subway' ),
+							'message' => __( 'Required: Username and Password cannot be empty.', 'subway' ),
 						),
 					'__userempty' => array(
-							'message' => __( 'Required: Username cannot not be empty.', 'subway' ),
+							'message' => __( 'Required: Username cannot be empty.', 'subway' ),
 						),
 					'__passempty' => array(
-							'message' => __( 'Required: Password cannot not be empty.', 'subway' ),
+							'message' => __( 'Required: Password cannot be empty.', 'subway' ),
 						),
 					'fb_invalid_email' => array(
-							'message' => __( 'Facebook email is invalid or is not verified.', 'subway' ),
+							'message' => __( 'Facebook email address is invalid or is not yet verified.', 'subway' ),
 						),
 					'fb_error' => array(
-							'message' => __( 'Facebook Application Error. Misconfig or App is rejected.', 'subway' ),
+							'message' => __( 'Facebook Application Error. Misconfigured or App is rejected.', 'subway' ),
 						),
 					'app_not_live' => array(
-							'message' => __( 'Unable to fetch your Facebook profile.', 'subway' ),
+							'message' => __( 'Unable to fetch your Facebook Profile.', 'subway' ),
 						),
 					'gears_username_or_email_exists' => array(
-							'message' => __( 'Username or e-mail already exists', 'subway' ),
+							'message' => __( 'Username or email address already exists', 'subway' ),
 						),
 					'gp_error_authentication' => array(
 							'message' => __( 'Google Plus Authentication Error. Invalid Client ID or Secret.', 'subway' ),

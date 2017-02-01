@@ -139,7 +139,14 @@ function subway_redirect_login() {
 
 				wp_safe_redirect( esc_url_raw( $redirect_to ) );
 			} else {
-				wp_safe_redirect( $redirect_page );
+
+				// Generic.
+				$redirect_to = add_query_arg( array(
+						'login' => 'failed',
+						'type' => 'default',
+				), $redirect_page );
+
+				wp_safe_redirect( esc_url_raw( $redirect_to ) );
 			}
 		}
 	}
