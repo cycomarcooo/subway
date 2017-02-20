@@ -1,9 +1,11 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Subway 1.0\n"
-"POT-Creation-Date: 2016-10-20 12:46+0200\n"
-"PO-Revision-Date: 2016-10-20 16:53+0200\n"
+"POT-Creation-Date: 2017-02-20 16:05+0100\n"
+"PO-Revision-Date: 2017-02-20 16:08+0100\n"
+"Last-Translator: \n"
 "Language-Team: Dunhakdis Software Creatives <dsc.official.mail@gmail.com>\n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -11,8 +13,6 @@ msgstr ""
 "X-Poedit-Basepath: ..\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Poedit-KeywordsList: __;_e;esc_html__\n"
-"Last-Translator: \n"
-"Language: fr\n"
 "X-Poedit-SearchPath-0: functions.php\n"
 "X-Poedit-SearchPath-1: login-form.php\n"
 "X-Poedit-SearchPath-2: private.php\n"
@@ -35,79 +35,80 @@ msgstr "Se souvenir de moi"
 msgid "Log In"
 msgstr "Connexion"
 
-#: login-form.php:50
+#: login-form.php:52
 msgid ""
 "Error: There was an error trying to sign-in to your account. Make sure your "
 "credentials are correct"
 msgstr ""
-"Erreur: Il y eue une erreur lors de la tentative de connexion à votre "
-"compte. Veuillez vérifier vos données de connexion."
+"Erreur : Il y a eu une erreur pendant la connexion à votre compte. Assurez-"
+"vous que vos informations d’identification sont correctes."
 
-#: login-form.php:53
+#: login-form.php:55
 msgid "Required: Username and Password cannot not be empty."
 msgstr ""
+"Les champs nom d'utilisateur et mot de passe ne peuvent pas être vides."
 
-#: login-form.php:56
+#: login-form.php:58
 msgid "Required: Username cannot not be empty."
-msgstr ""
+msgstr "Le Nom d'utilisateur ne peut pas être vide."
 
-#: login-form.php:59
+#: login-form.php:61
 msgid "Required: Password cannot not be empty."
-msgstr ""
+msgstr "Le champ Mot de passe ne peut pas être vide."
 
-#: login-form.php:62
+#: login-form.php:64
 msgid "Facebook email is invalid or is not verified."
 msgstr ""
 
-#: login-form.php:65
+#: login-form.php:67
 msgid "Facebook Application Error. Misconfig or App is rejected."
 msgstr ""
 
-#: login-form.php:68
+#: login-form.php:70
 msgid "Unable to fetch your Facebook profile."
 msgstr ""
 
-#: login-form.php:71
+#: login-form.php:73
 msgid "Username or e-mail already exists"
 msgstr ""
 
-#: login-form.php:74
+#: login-form.php:76
 msgid "Google Plus Authentication Error. Invalid Client ID or Secret."
 msgstr ""
 
-#: login-form.php:90
+#: login-form.php:92
 msgid "Error: Invalid username and password combination."
 msgstr "Erreur: Nom d’utilisateur et/ou mot de passe incorrect."
 
-#: login-form.php:97
+#: login-form.php:99
 msgid "Oops! Looks like you need to login in order to view the page."
 msgstr "Vous devez vous identifier avant de pouvoir afficher cette page."
 
-#: login-form.php:105
+#: login-form.php:108
 msgid "Account Sign-in"
 msgstr "Connexion"
 
-#: login-form.php:152
+#: login-form.php:162
 msgid "Forgot Password"
 msgstr "J’ai oublié mon mot de passe"
 
-#: private.php:132
+#: private.php:136
 msgid "Pages Visibility Settings"
 msgstr ""
 
-#: private.php:140
+#: private.php:144
 msgid "Display the following pages and posts in public"
 msgstr ""
 
-#: private.php:149
+#: private.php:153
 msgid "Make my Intranet public"
 msgstr ""
 
-#: private.php:158
+#: private.php:162
 msgid "Login Page"
 msgstr ""
 
-#: private.php:191
+#: private.php:195
 msgid ""
 "Enter the IDs of posts and/or pages that you wanted to show in public. You "
 "need to separate it by \",\"(comma), <br>for example: 143,123,213. "
@@ -115,17 +116,17 @@ msgid ""
 "by checking <br>the option below."
 msgstr ""
 
-#: private.php:204
+#: private.php:208
 msgid ""
 "Pages like user profile, members, and groups are still only available to the "
 "rightful owner of the profile"
 msgstr ""
 
-#: private.php:241
+#: private.php:245
 msgid "Select Page"
 msgstr ""
 
-#: private.php:244
+#: private.php:248
 msgid ""
 "Select a page to use as a login page for your website. <strong style=\"color:"
 "red;\">You need to add \"[subway_login]\" shortcode in the selected page<br> "
