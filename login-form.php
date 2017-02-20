@@ -124,7 +124,7 @@ function subway_wp_login( $atts ) {
 	<?php } else { ?>
 		<div class="mg-top-35 mg-bottom-35 subway-login-sucessfull" style="background: #CDDC39; padding: 15px 15px 15px 15px;border-radius: 4px;color: #616161;">
 			<p style="margin-bottom: 0px;">
-				<?php echo esc_html__( apply_filters( 'subway_login_message', 'Great! You have succesfully login.' ), 'subway' ); ?>
+				<?php echo esc_html( apply_filters( 'subway_login_message', __( 'Great! You have successfully logged in.' , 'subway' ) ) ); ?>
 			</p>
 		</div>
 	<?php } ?>
