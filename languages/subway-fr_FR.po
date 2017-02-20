@@ -1,0 +1,198 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Subway 1.0\n"
+"POT-Creation-Date: 2017-02-20 17:07+0100\n"
+"PO-Revision-Date: 2017-02-20 17:11+0100\n"
+"Last-Translator: \n"
+"Language-Team: Dunhakdis Software Creatives <dsc.official.mail@gmail.com>\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.11\n"
+"X-Poedit-Basepath: ..\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Poedit-KeywordsList: __;_e;esc_html__\n"
+"X-Poedit-SearchPath-0: functions.php\n"
+"X-Poedit-SearchPath-1: login-form.php\n"
+"X-Poedit-SearchPath-2: private.php\n"
+"X-Poedit-SearchPath-3: subway.php\n"
+"X-Poedit-SearchPath-4: update-check.php\n"
+
+#: login-form.php:27
+msgid "Username"
+msgstr "Nom d’utilisateur"
+
+#: login-form.php:28
+msgid "Password"
+msgstr "Mot de passe"
+
+#: login-form.php:29
+msgid "Remember Me"
+msgstr "Se souvenir de moi"
+
+#: login-form.php:30
+msgid "Log In"
+msgstr "Connexion"
+
+#: login-form.php:56
+msgid ""
+"There was an error trying to sign-in to your account. Make sure the "
+"credentials below are correct."
+msgstr ""
+"Il y a eu une erreur pendant la connexion à votre compte. Assurez-vous que "
+"vos informations d’identification sont correctes."
+
+#: login-form.php:59
+msgid "Required: Username and Password cannot be empty."
+msgstr ""
+"Les champs nom d'utilisateur et mot de passe ne peuvent pas être vides."
+
+#: login-form.php:62
+msgid "Required: Username cannot be empty."
+msgstr "Le nom d'utilisateur ne peut pas être vide."
+
+#: login-form.php:65
+msgid "Required: Password cannot be empty."
+msgstr "Le mot de passe ne peut pas être vide."
+
+#: login-form.php:68
+msgid "Facebook email address is invalid or is not yet verified."
+msgstr "Adresse email Facebook n’est pas valide ou pas encore vérifiée."
+
+#: login-form.php:71
+msgid "Facebook Application Error. Misconfigured or App is rejected."
+msgstr "Erreur de l'application Facebook."
+
+#: login-form.php:74
+msgid "Unable to fetch your Facebook Profile."
+msgstr "Impossible de récupérer votre profil Facebook."
+
+#: login-form.php:77
+msgid "Username or email address already exists"
+msgstr ""
+
+#: login-form.php:80
+msgid "Google Plus Authentication Error. Invalid Client ID or Secret."
+msgstr ""
+
+#: login-form.php:96
+msgid "Error: Invalid username and password combination."
+msgstr "Erreur: Nom d’utilisateur et/ou mot de passe incorrect."
+
+#: login-form.php:103
+msgid "Oops! Looks like you need to login in order to view the page."
+msgstr "Vous devez vous identifier avant de pouvoir afficher cette page."
+
+#: login-form.php:112
+msgid "Account Sign-in"
+msgstr "Connexion"
+
+#: login-form.php:127
+msgid "Great! You have successfully logged in."
+msgstr "Vous êtes connecté avec succès!"
+
+#: login-form.php:166
+msgid "Forgot Password"
+msgstr "J’ai oublié mon mot de passe"
+
+#: private.php:148
+msgid "Pages Visibility Settings"
+msgstr ""
+
+#: private.php:156
+msgid "Public Posts IDs"
+msgstr ""
+
+#: private.php:165
+msgid "Public Website"
+msgstr ""
+
+#: private.php:174
+msgid "Login Page"
+msgstr ""
+
+#: private.php:183
+msgid "Redirect Type"
+msgstr ""
+
+#: private.php:192
+msgid "Bypassing Redirect"
+msgstr ""
+
+#: private.php:243
+msgid ""
+"Pages like user profile, members, and groups are still only available to the "
+"rightful owner of the profile."
+msgstr ""
+
+#: private.php:281
+msgid "---"
+msgstr ""
+
+#: private.php:285
+#, php-format
+msgid ""
+"Select a page to use as a login page for your website. Select a login page "
+"and save the changes to make your site private. Leave blank to make your "
+"site public. %1$s."
+msgstr ""
+
+#: private.php:285
+msgid ""
+"You need to add \"[subway_login]\" shortcode in the selected page to show "
+"the login form (this is automatic)"
+msgstr ""
+
+#: private.php:302
+#, php-format
+msgid ""
+"Use the following link to bypass the log-in page \n"
+"\t\tand go directly to your website's wp-login URL (http://yoursiteurl.com/"
+"wp-login.php): \n"
+"\t\t<br><br> <strong>%s</strong>"
+msgstr ""
+
+#: private.php:387
+msgid "-"
+msgstr ""
+
+#: private.php:392
+msgid ""
+"The selected page will be used as the redirect endpoint for all of your "
+"users. Selecting blank (-) will redirect the user to the default redirect "
+"defined in WordPress or other plugins. Choose \"Custom URL\" if you want to "
+"redirect to a custom URL or domain."
+msgstr ""
+
+#: private.php:408
+#, php-format
+msgid ""
+"When entering a custom domain, you can use a variable string such us: %1$s "
+"and %2$s. For example, http://yoursiteurl.com/members/<strong>%2$s</strong> "
+"will translate to http://yoursiteurl/members/<strong>admin</strong> where "
+"\"admin\" is equal to the %2$s variable; http://yoursiteurl.com/users/"
+"<strong>%1$s</strong> will translate to http://yoursiteurl.com/users/"
+"<strong>4</strong> where \"4\" is equal to the %1$s. Both variables refer to "
+"the current user that is logged-in."
+msgstr ""
+
+#: update-check.php:442
+msgid ""
+"The plugin has been updated, but could not be reactivated. Please reactivate "
+"it manually."
+msgstr ""
+
+#: update-check.php:443
+msgid "Plugin reactivated successfully."
+msgstr ""
+
+#~ msgid "Great! You have succesfully login."
+#~ msgstr "Génial! Vous êtes connecté avec succès."
+
+#~ msgid ""
+#~ "Error: There was an error trying to sign-in to your account. Make sure "
+#~ "your credentials are correct"
+#~ msgstr ""
+#~ "Erreur: Il y eue une erreur lors de la tentative de connexion à votre "
+#~ "compte. Veuillez vérifier vos données de connexion."
